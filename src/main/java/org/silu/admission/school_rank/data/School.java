@@ -66,4 +66,19 @@ public class School {
   public Object getField(String fieldName){
     return fieldMap.containsKey(fieldName)?fieldMap.get(fieldName):null;
   }
+  @Override
+  public String toString(){
+    StringBuilder builder=new StringBuilder();
+    builder.append(name+" "+rank.toString());
+    builder.append(" "+city+" "+state+" {");
+    for(String major : majorRanks.keySet()) {
+      builder.append(major+": "+majorRanks.get(major)+"; ");
+    }
+    builder.append("} {");
+    for(String field : fieldMap.keySet()){
+      builder.append(field+": "+fieldMap.get(field).toString());
+    }
+    builder.append("}");
+    return builder.toString();
+  }
 }

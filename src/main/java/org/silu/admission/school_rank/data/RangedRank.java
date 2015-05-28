@@ -29,5 +29,11 @@ public class RangedRank extends Rank {
   public void setRanged(boolean isRanged) {
     this.isRanged = isRanged;
   }
-
+  @Override
+  public String toString(){
+    StringBuilder builder=new StringBuilder();
+    builder.append(super.toString());
+    builder.append("["+head+", "+bottom+"]");
+    return builder.toString();
+  }
 }
