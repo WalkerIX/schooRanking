@@ -1,4 +1,4 @@
-package org.silu.admission.school_rank.utils;
+package org.silu.admission.school_rank.ranker;
 
 import java.io.File;
 import java.util.Map;
@@ -7,7 +7,7 @@ import org.mapdb.DB;
 import org.mapdb.DBMaker;
 
 
-public class App
+public class SchoolRanker
 {
   public static void main( String[] args )
   {

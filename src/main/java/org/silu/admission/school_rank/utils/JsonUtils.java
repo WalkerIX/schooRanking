@@ -11,7 +11,7 @@ public class JsonUtils {
     return gson.toJson(obj);
   }
   @SuppressWarnings("unchecked")
-  public static Object getObjectFromJson(String jsonStr, Class clazz){
+  public static Object getObjectFromJson(String jsonStr, @SuppressWarnings("rawtypes") Class clazz){
     return gson.fromJson(jsonStr, clazz);
   }
 }
