@@ -20,7 +20,7 @@ public class TextProcessUtils {
    * @param colState column of state
    * @return school if scucceed, else null
    */
-  public School createSchool(String line, int colU, int colRank, int colCity,
+  public static School createSchool(String line, int colU, int colRank, int colCity,
       int colState, String seperator){
     String[] cells=line.split(seperator);
     if(cells.length<=2) {
@@ -36,7 +36,7 @@ public class TextProcessUtils {
     }
     return school;
   }
-  
+
   /**
    * Create schools from text file
    * @param inputPath
@@ -47,7 +47,7 @@ public class TextProcessUtils {
    * @param seperator
    * @return a list of schools from text file
    */
-  public List<School> SchoolTextParser(String inputPath, int colU, int colRank,
+  public static List<School> SchoolTextParser(String inputPath, int colU, int colRank,
       int colCity, int colState, String seperator){
     List<School> list=new ArrayList<School>();
     try {

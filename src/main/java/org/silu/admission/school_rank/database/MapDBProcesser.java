@@ -12,11 +12,11 @@ import org.silu.admission.school_rank.utils.SchoolUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MapDBUtils {
-  
+public class MapDBProcesser {
+
   private static DB db;
   private static Map<String, String> map;
-  private static Logger logger=LoggerFactory.getLogger(MapDBUtils.class);
+  private static Logger logger=LoggerFactory.getLogger(MapDBProcesser.class);
   /**
    * Dump all schools to the MapDb
    * @param schools
@@ -54,7 +54,11 @@ public class MapDBUtils {
       db=DBMaker.newFileDB(new File(dbName)).closeOnJvmShutdown()
           .encryptionEnable("password")
           .make();
-      map=db.createHashMap(collection).make();
+      if(db.getHashMap(collection)==null) {
+        map=db.createHashMap(collection).make();
+      }else{
+        map=db.getHashMap(collection);
+      }
       return true;
     }catch(Exception e){
       logger.info("Fail to init database: "+dbName);
@@ -62,17 +66,17 @@ public class MapDBUtils {
       return false;
     }
   }
-  
+
   /**
    * Get the school object from db
    * @param schoolName
    * @return null if db is off or the school doesn't exist
    */
-  public static School getFromDB(String schoolName){
-    if((db==null) || (map==null)) {
+  public static School getFromDB(String schoolName, Map<String, String> cMap){
+    if((db==null) || (cMap==null)) {
       return null;
     }
-    String jsonStr=map.get(schoolName);
+    String jsonStr=cMap.get(schoolName);
     if(jsonStr==null) {
       return null;
     }
@@ -85,22 +89,25 @@ public class MapDBUtils {
       return null;
     }
   }
-  
+
   /**
    * Get all schools in DB
    * @return all schools in db
    */
-  public static List<School> getAllSchoolFromDB(){
+  public static List<School> getAllSchoolFromDB(String mapName){
     List<School> list=new ArrayList<School>();
-    if((db==null) || (map==null)){
+    if(db==null){
       logger.warn("db is null or map is null");
       return list;
     }
     for(String schoolName : map.keySet()){
-      list.add(getFromDB(schoolName));
+      list.add(getFromDB(schoolName, map));
     }
     return list;
   }
+  /**
+   * Close db
+   */
   public static void close(){
     db.close();
     logger.info("Close DB ... ...");
