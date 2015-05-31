@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MapDBProcesser {
-
+  
   private static DB db;
   private static Map<String, String> map;
   private static Logger logger=LoggerFactory.getLogger(MapDBProcesser.class);
@@ -66,7 +66,7 @@ public class MapDBProcesser {
       return false;
     }
   }
-
+  
   /**
    * Get the school object from db
    * @param schoolName
@@ -89,7 +89,7 @@ public class MapDBProcesser {
       return null;
     }
   }
-
+  
   /**
    * Get all schools in DB
    * @return all schools in db
