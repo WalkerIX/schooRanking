@@ -13,10 +13,37 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MapDBProcesser {
-  
+
   private static DB db;
   private static Map<String, String> map;
+  private static boolean isInited=false;
   private static Logger logger=LoggerFactory.getLogger(MapDBProcesser.class);
+  /**
+   * Init the database
+   * @param dbName the name of database
+   * @param key the password
+   * @param collection the name of collection
+   * @return false if init fails
+   */
+  public static boolean init(String dbName, String key, String collection){
+    logger.info("Start DB ... ...");
+    try{
+      db=DBMaker.newFileDB(new File(dbName)).closeOnJvmShutdown()
+          .encryptionEnable("password")
+          .make();
+      if(db.getHashMap(collection)==null) {
+        map=db.createHashMap(collection).make();
+      }else{
+        map=db.getHashMap(collection);
+      }
+      isInited=true;
+      return isInited;
+    }catch(Exception e){
+      logger.info("Fail to init database: "+dbName);
+      e.printStackTrace();
+      return false;
+    }
+  }
   /**
    * Dump all schools to the MapDb
    * @param schools
@@ -41,32 +68,21 @@ public class MapDBProcesser {
     db.commit();
     return count;
   }
+
+
   /**
-   * Init the database
-   * @param dbName the name of database
-   * @param key the password
-   * @param collection the name of collection
-   * @return false if init fails
+   * Get the school object from DB
+   * @param schoolName
+   * @return null if db is off or the school doesn't exist
    */
-  public static boolean init(String dbName, String key, String collection){
-    logger.info("Start DB ... ...");
-    try{
-      db=DBMaker.newFileDB(new File(dbName)).closeOnJvmShutdown()
-          .encryptionEnable("password")
-          .make();
-      if(db.getHashMap(collection)==null) {
-        map=db.createHashMap(collection).make();
-      }else{
-        map=db.getHashMap(collection);
-      }
-      return true;
-    }catch(Exception e){
-      logger.info("Fail to init database: "+dbName);
-      e.printStackTrace();
-      return false;
+  public static School getSchoolFromDB(String schoolName){
+    if(!isInited || (db==null) || (map==null)){
+      logger.error("Fail to get School From DB for: "+schoolName);
+      return null;
     }
+    return getFromDB(schoolName, map);
   }
-  
+
   /**
    * Get the school object from db
    * @param schoolName
@@ -89,12 +105,12 @@ public class MapDBProcesser {
       return null;
     }
   }
-  
+
   /**
    * Get all schools in DB
    * @return all schools in db
    */
-  public static List<School> getAllSchoolFromDB(String mapName){
+  public static List<School> getAllSchoolFromDB(){
     List<School> list=new ArrayList<School>();
     if(db==null){
       logger.warn("db is null or map is null");

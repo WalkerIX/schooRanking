@@ -2,6 +2,7 @@ package org.silu.admission.school_rank.utils;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,7 +46,7 @@ public class FileUtils {
     reader.close();
     return list;
   }
-
+  
   /**
    *
    * @param colStart: include
@@ -85,16 +86,31 @@ public class FileUtils {
    * @param colKey
    * @param colValue
    * @param inputPath
-   * @return
+   * @return By default the seperator is tab
    * @throws IOException
    */
   public static Map<String, String> readFileToMap(int colKey, int colValue, String inputPath)
       throws IOException{
+    return readFileToMap(colKey, colValue, "\t", inputPath);
+  }
+  
+  /**
+   * Read the file to Map
+   * @param colKey
+   * @param colValue
+   * @param seperator
+   * @param inputPath
+   * @return
+   * @throws IOException
+   */
+  public static Map<String, String> readFileToMap(int colKey, int colValue, String seperator,
+      String inputPath)
+          throws IOException{
     Map<String, String> map=new HashMap<String, String>();
     BufferedReader reader=new BufferedReader(new FileReader(inputPath));
     String line="";
     while((line=reader.readLine())!=null){
-      String[] parts=line.split("\t");
+      String[] parts=line.split(seperator);
       if((colKey>=parts.length) || (colValue>=parts.length)){
         System.out.println("Error: the input file doesn not have column "+Math.max(colKey, colValue));
         reader.close();
@@ -105,7 +121,6 @@ public class FileUtils {
     reader.close();
     return map;
   }
-
   /**
    *
    * @param inputPath
@@ -141,9 +156,9 @@ public class FileUtils {
     }
     out.close();
   }
-
+  
   /**
-   *
+   * By default the seperator is tab
    * @param <T>
    * @param <V>
    * @param <V>
@@ -153,13 +168,25 @@ public class FileUtils {
    */
   public static <T, V> void writeToFile(Map<T, V> map, String outputPath)
       throws FileNotFoundException{
+    writeToFile(map, outputPath, "\t");
+  }
+  
+  /**
+   *
+   * @param map
+   * @param outputPath
+   * @param seperator the output seperator between key-value
+   * @throws FileNotFoundException
+   */
+  public static <T, V> void writeToFile(Map<T, V> map, String outputPath, String seperator)
+      throws FileNotFoundException{
     if((map==null) || (map.size()==0)){
       System.out.println("WriteToFile Error: The input map is none or empty");
       return;
     }
-    PrintWriter out = new PrintWriter(new String(outputPath));
+    PrintWriter out = new PrintWriter(new FileOutputStream(outputPath),true);
     for(T key : map.keySet()) {
-      out.println(key+"\t"+map.get(key));
+      out.println(key+seperator+map.get(key));
     }
     out.close();
   }
