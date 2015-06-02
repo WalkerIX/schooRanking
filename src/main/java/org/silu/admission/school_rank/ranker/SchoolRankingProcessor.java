@@ -30,7 +30,7 @@ public class SchoolRankingProcessor
   {
     //  saveToDB();
     readAndPrint();
-    //  getMappingInfo();
+    //getMappingInfo();
   }
   private static void saveToDB(){
     List<School> schools=TextProcessUtils.SchoolTextParser(INPUT_PATH,

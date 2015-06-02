@@ -110,7 +110,8 @@ public class FileUtils {
     BufferedReader reader=new BufferedReader(new FileReader(inputPath));
     String line="";
     while((line=reader.readLine())!=null){
-      String[] parts=line.split(seperator);
+      String trimedLine=new String(trim(line.trim()));
+      String[] parts=trimedLine.split(seperator);
       if((colKey>=parts.length) || (colValue>=parts.length)){
         System.out.println("Error: the input file doesn not have column "+Math.max(colKey, colValue));
         reader.close();
@@ -224,5 +225,20 @@ public class FileUtils {
     }
     reader.close();
     out.close();
+  }
+
+  private static String trim(String str){
+    int len=str.length();
+    if(len<=0) {
+      return str;
+    }
+    int start=0, end=len-1;
+    while((str.charAt(start)==' ') || (str.charAt(start)=='\t')){
+      start++;
+    }
+    while((str.charAt(end)==' ') || (str.charAt(end)=='\t')){
+      end--;
+    }
+    return str.substring(start, end+1);
   }
 }

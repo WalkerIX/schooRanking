@@ -11,10 +11,10 @@ import org.slf4j.LoggerFactory;
 
 public class NameMappingUtils {
   private static Logger logger=LoggerFactory.getLogger(NameMappingUtils.class);
-  private static String PATH="src/main/resources/schoolRank.tsv";
+  private static String PATH="src/main/resources/schoolMapping.tsv";
   private static int sleepTime=3000;
   private static Map<String, String> normToDBMap=null;
-  private final static String PLUS_MARK="+";
+  private final static String PLUS_MARK="\\+";
   public static void init(){
     try{
       normToDBMap=FileUtils.readFileToMap(0, 1, PLUS_MARK, PATH);

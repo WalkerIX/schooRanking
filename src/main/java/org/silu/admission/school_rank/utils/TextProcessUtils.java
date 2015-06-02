@@ -26,17 +26,17 @@ public class TextProcessUtils {
     if(cells.length<=2) {
       return null;
     }
-    School school=new School(cells[colU]);
+    School school=new School(cells[colU].trim());
     school.setRank(new Rank(Integer.parseInt(cells[colRank])));
     if(cells.length>colCity) {
-      school.setCity(cells[colCity]);
+      school.setCity(cells[colCity].trim());
     }
     if(cells.length>colState) {
-      school.setState(cells[colState]);
+      school.setState(cells[colState].trim());
     }
     return school;
   }
-
+  
   /**
    * Create schools from text file
    * @param inputPath
@@ -53,6 +53,7 @@ public class TextProcessUtils {
     try {
       List<String> lines=FileUtils.readFile(0, 99, inputPath, seperator);
       for(String line : lines){
+        line=line.replace((char)(160), (char)(32));
         School school=createSchool(line, colU, colRank, colCity, colState, seperator);
         if(school==null){
           logger.warn("Fail to create school for line: "+line);

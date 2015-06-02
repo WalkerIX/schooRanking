@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MapDBProcesser {
-
+  
   private static DB db;
   private static Map<String, String> map;
   private static boolean isInited=false;
@@ -57,7 +57,7 @@ public class MapDBProcesser {
     int count=0;
     for(School school : schools){
       try{
-        map.put(school.getName(), SchoolUtils.getSchoolJsonString(school));
+        map.put(school.getName().trim(), SchoolUtils.getSchoolJsonString(school));
       }catch(Exception e){
         e.printStackTrace();
         logger.info("Fail to dump school: "+school.toString()+" to database");
@@ -68,8 +68,8 @@ public class MapDBProcesser {
     db.commit();
     return count;
   }
-
-
+  
+  
   /**
    * Get the school object from DB
    * @param schoolName
@@ -82,7 +82,7 @@ public class MapDBProcesser {
     }
     return getFromDB(schoolName, map);
   }
-
+  
   /**
    * Get the school object from db
    * @param schoolName
@@ -105,7 +105,7 @@ public class MapDBProcesser {
       return null;
     }
   }
-
+  
   /**
    * Get all schools in DB
    * @return all schools in db

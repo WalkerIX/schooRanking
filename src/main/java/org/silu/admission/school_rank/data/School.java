@@ -11,7 +11,7 @@ public class School {
   protected Map<String, Rank> majorRanks;
   protected Map<String, Object> fieldMap;
   public School(String name){
-    this.name=name;
+    this.name=name.trim();
     majorRanks=new HashMap<String, Rank>();
     fieldMap=new HashMap<String, Object>();
   }
@@ -40,13 +40,13 @@ public class School {
     return state;
   }
   public void setState(String state) {
-    this.state = state;
+    this.state = state.trim();
   }
   public String getCity() {
     return city;
   }
   public void setCity(String city) {
-    this.city = city;
+    this.city = city.trim();
   }
   public void setMajorRank(String major, int rank){
     majorRanks.put(major, new Rank(rank));
