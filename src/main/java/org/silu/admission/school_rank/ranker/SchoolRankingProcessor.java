@@ -17,7 +17,8 @@ import org.slf4j.LoggerFactory;
 public class SchoolRankingProcessor
 {
   private static Logger logger=LoggerFactory.getLogger(SchoolRankingProcessor.class);
-  private final static String INPUT_PATH="src/main/resources/schoolRank.tsv";
+  // private final static String INPUT_PATH="src/main/resources/schoolRank.tsv";
+  private final static String INPUT_PATH="/schoolRank.tsv";
   private final static int COL_UNIVERSITY=1;
   private final static int COL_RANK=0;
   private final static int COL_CITY=2;
@@ -26,12 +27,14 @@ public class SchoolRankingProcessor
   private final static String DB_NAME="universityDB";
   private final static String KEY="silu12345";
   private final static String COLLECTION="university-rank";
+  /*
   public static void main( String[] args ) throws IOException, InterruptedException
   {
     //  saveToDB();
     readAndPrint();
     //getMappingInfo();
   }
+   */
   private static void saveToDB(){
     List<School> schools=TextProcessUtils.SchoolTextParser(INPUT_PATH,
         COL_UNIVERSITY, COL_RANK, COL_CITY, COL_STATE, TAB);

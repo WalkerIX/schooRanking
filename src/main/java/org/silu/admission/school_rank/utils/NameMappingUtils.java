@@ -11,7 +11,8 @@ import org.slf4j.LoggerFactory;
 
 public class NameMappingUtils {
   private static Logger logger=LoggerFactory.getLogger(NameMappingUtils.class);
-  private static String PATH="src/main/resources/schoolMapping.tsv";
+  //  private static String PATH="src/main/resources/schoolMapping.tsv";
+  private static String PATH="/schoolMapping.tsv";
   private static int sleepTime=3000;
   private static Map<String, String> normToDBMap=null;
   private final static String PLUS_MARK="\\+";
@@ -51,7 +52,7 @@ public class NameMappingUtils {
   public static Map<String, String> getAllMappingPairs() throws IOException, InterruptedException{
     return getMappingPairs(0,Integer.MAX_VALUE);
   }
-
+  
   /**
    * This method is used to generate the resources. Should not be called in general use
    * @param start Include
@@ -79,5 +80,5 @@ public class NameMappingUtils {
     }
     return map;
   }
-
+  
 }

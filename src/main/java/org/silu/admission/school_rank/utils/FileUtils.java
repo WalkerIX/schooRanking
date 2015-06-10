@@ -3,8 +3,8 @@ package org.silu.admission.school_rank.utils;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +28,8 @@ public class FileUtils {
     if(colStart>colEnd) {
       return list;
     }
-    BufferedReader reader=new BufferedReader(new FileReader(inputPath));
+    //BufferedReader reader=new BufferedReader(new FileReader(inputPath));
+    BufferedReader reader=new BufferedReader(new InputStreamReader(FileUtils.class.getClass().getResourceAsStream((inputPath))));
     String line="";
     while((line=reader.readLine())!=null){
       String[] parts=line.split(seperator);
@@ -63,7 +64,8 @@ public class FileUtils {
     if(colStart>colEnd) {
       return list;
     }
-    BufferedReader reader=new BufferedReader(new FileReader(inputPath));
+    //   BufferedReader reader=new BufferedReader(new FileReader(inputPath));
+    BufferedReader reader=new BufferedReader(new InputStreamReader(FileUtils.class.getClass().getResourceAsStream((inputPath))));
     String line="";
     while((line=reader.readLine())!=null){
       String[] parts=line.split(sepInput);
@@ -107,7 +109,8 @@ public class FileUtils {
       String inputPath)
           throws IOException{
     Map<String, String> map=new HashMap<String, String>();
-    BufferedReader reader=new BufferedReader(new FileReader(inputPath));
+    //  BufferedReader reader=new BufferedReader(new FileReader(inputPath));
+    BufferedReader reader=new BufferedReader(new InputStreamReader(FileUtils.class.getClass().getResourceAsStream((inputPath))));
     String line="";
     while((line=reader.readLine())!=null){
       String trimedLine=new String(trim(line.trim()));
@@ -130,7 +133,8 @@ public class FileUtils {
    */
   public static Set<String> readFileToSet(String inputPath) throws IOException{
     Set<String> set=new HashSet<String>();
-    BufferedReader reader=new BufferedReader(new FileReader(inputPath));
+    //  BufferedReader reader=new BufferedReader(new FileReader(inputPath));
+    BufferedReader reader=new BufferedReader(new InputStreamReader(FileUtils.class.getClass().getResourceAsStream((inputPath))));
     String line="";
     while((line=reader.readLine())!=null){
       set.add(line);
@@ -205,7 +209,8 @@ public class FileUtils {
     if(colStart>colEnd) {
       return;
     }
-    BufferedReader reader=new BufferedReader(new FileReader(inputPath));
+    // BufferedReader reader=new BufferedReader(new FileReader(inputPath));
+    BufferedReader reader=new BufferedReader(new InputStreamReader(FileUtils.class.getClass().getResourceAsStream((inputPath))));
     PrintWriter out = new PrintWriter(new String(outputPath));
     String line="";
     int lineNum=0;

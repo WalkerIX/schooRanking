@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 public class NameConversionUtils {
   private static Logger logger=LoggerFactory.getLogger(NameConversionUtils.class);
-  private final static int SLEEP_TIME=1000;
+  private final static int SLEEP_TIME=3000;
   private static String AGENT="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) "
       + "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36";
   private static String GOOGLE_URL="https://www.google.com/search?q=";
@@ -52,7 +52,7 @@ public class NameConversionUtils {
     try{
       // Document doc = Jsoup.connect(decorate(url, rawName, decoretor)).userAgent(AGENT).get();
       Document doc = Jsoup.connect(decorate(url, rawName, decoretor)).
-          userAgent(AGENT).followRedirects(true).get();
+          userAgent(AGENT).timeout(SLEEP_TIME).followRedirects(true).get();
       Elements  refs= doc.select(CLASSES);
       // check if the size is 0
       if(refs.size()==0){

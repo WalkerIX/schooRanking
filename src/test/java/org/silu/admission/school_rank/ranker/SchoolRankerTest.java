@@ -13,4 +13,10 @@ public class SchoolRankerTest {
     int rank=SchoolRanker.getRank("nyu", DB_NAME, KEY, COLLECTION);
     assertThat(rank, is(32));
   }
+
+  @Test
+  public void testRankerDefault(){
+    int rank=SchoolRanker.getRank("nyu");
+    assertThat(rank, is(32));
+  }
 }

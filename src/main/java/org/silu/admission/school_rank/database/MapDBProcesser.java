@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MapDBProcesser {
-  
+
   private static DB db;
   private static Map<String, String> map;
   private static boolean isInited=false;
@@ -68,8 +68,8 @@ public class MapDBProcesser {
     db.commit();
     return count;
   }
-  
-  
+
+
   /**
    * Get the school object from DB
    * @param schoolName
@@ -77,12 +77,12 @@ public class MapDBProcesser {
    */
   public static School getSchoolFromDB(String schoolName){
     if(!isInited || (db==null) || (map==null)){
-      logger.error("Fail to get School From DB for: "+schoolName);
+      logger.error("Fail to get School From DB for: "+schoolName +" because db is not inited");
       return null;
     }
     return getFromDB(schoolName, map);
   }
-  
+
   /**
    * Get the school object from db
    * @param schoolName
@@ -101,11 +101,12 @@ public class MapDBProcesser {
       return school;
     }catch(Exception e){
       logger.warn("Fail to get school info from db for "+schoolName);
+      logger.warn(e.getMessage());
       e.printStackTrace();
       return null;
     }
   }
-  
+
   /**
    * Get all schools in DB
    * @return all schools in db
@@ -127,5 +128,8 @@ public class MapDBProcesser {
   public static void close(){
     db.close();
     logger.info("Close DB ... ...");
+  }
+  public static boolean isInited(){
+    return isInited;
   }
 }
